@@ -29,3 +29,13 @@ wget https://phar.phpunit.de/phar-site-generator.phar
 </phar-site>
 ```
 
+The directory listen under `<directory>` has to contain all `*.phar` and `*.phar.asc` releases formatted as `NAME-MAJOR.MINOR.PATH` e.g. `phpunit-5.0.1.phar`. Do not add unversioned phars, nginx redirects will automatically forward requests to `/your-phar.phar` to the latest phar version.
+
+For this to work the nginx snippet has to be included in the nginx configuration of your phar site:
+
+```nginx
+server {
+    # ...
+    include /webspace/phpunit.de/phar/redirects.conf;
+}
+```
